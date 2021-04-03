@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+}
+
+group 'org.fp024.study.algorithm'
+version '1.0-SNAPSHOT'
+
+repositories {
+    jcenter()
+}
+
+ext.javaVersion=11
+ext.projectEncoding='UTF8'
+ext.lombokVersion='1.18.18'
+ext.junit5Version='5.7.1'
+
+sourceCompatibility = "$javaVersion"
+targetCompatibility = "$javaVersion"
+
+compileJava.options.encoding = "$projectEncoding"
+
+tasks.withType(JavaCompile) {
+    options.encoding = "$projectEncoding"
+}
+
+dependencies {
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1'
+
+    testImplementation(platform("org.junit:junit-bom:${junit5Version}"))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+test {
+    useJUnitPlatform()
+    // 터미널에서 테스트 실행시 테스트 실행의 콘솔 출력을 위해 추가.
+    // https://stackoverflow.com/questions/40954017/gradle-how-to-get-output-from-test-stderr-stdout-into-console
+    testLogging {
+        outputs.upToDateWhen {false}
+        showStandardStreams = true
+    }
+}
