@@ -1,5 +1,6 @@
 package org.fp024.study.algorithm.part01.chapter02;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class BinarySearch {
