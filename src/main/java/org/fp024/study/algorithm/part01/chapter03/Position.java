@@ -2,6 +2,8 @@ package org.fp024.study.algorithm.part01.chapter03;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 /**
  * 위치
  */
@@ -59,5 +61,32 @@ public class Position {
     @Override
     public String toString() {
         return String.format("(%d, %d)", x, y);
+    }
+
+    /**
+     * IntelliJ에서 Java 7+ 이상 버전으로 equals & hashCode를 생성했을 때..
+     * @param o  비교대상 오브젝트
+     * @return 동등여부
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
+
+    /**
+     * Objects 클래스가 Java 1.7 부터 추가되었다.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

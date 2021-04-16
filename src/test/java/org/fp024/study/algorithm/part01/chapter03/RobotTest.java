@@ -38,4 +38,12 @@ class RobotTest {
         assertEquals(15, robitaClone.getPosition().getX());
         assertEquals(25, robitaClone.getPosition().getY());
     }
+
+
+    @Test
+    void testEquals() {
+        Position a = new Position(10, 20);
+        Position b = new Position(10, 20);
+        assertEquals(a, b);
+    }
 }
