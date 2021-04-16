@@ -28,7 +28,14 @@ class RobotTest {
 
         assertEquals(15, robitaClone.getPosition().getX());
         assertEquals(25, robitaClone.getPosition().getY());
+
+
+        robita.moveXY(3, 3);
+
+        assertEquals(13, robita.getPosition().getX());
+        assertEquals(23, robita.getPosition().getY());
+
+        assertEquals(15, robitaClone.getPosition().getX());
+        assertEquals(25, robitaClone.getPosition().getY());
     }
-
-
 }

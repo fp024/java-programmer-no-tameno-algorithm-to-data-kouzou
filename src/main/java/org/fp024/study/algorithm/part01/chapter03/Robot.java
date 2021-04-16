@@ -30,7 +30,7 @@ public class Robot {
      * @param xDelta X방향의 이동거리
      */
     public void moveX(int xDelta) {
-        position.moveX(xDelta);
+        this.position = position.moveX(xDelta);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Robot {
      * @param yDelta Y방향의 이동거리
      */
     public void moveY(int yDelta) {
-        position.moveY(yDelta);
+        this.position = position.moveY(yDelta);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Robot {
      * @param yDelta Y방향의 이동 거리
      */
     public void moveXY(int xDelta, int yDelta) {
-        position.moveXY(xDelta, yDelta);
+        this.position = position.moveXY(xDelta, yDelta);
     }
 
     /**
@@ -57,7 +57,7 @@ public class Robot {
      * 저자님이 얕은 복사와 깊은 복사에 대해 설명을 하셨음,
      */
     public Robot makeClone() {
-        return new Robot(new Position(position.getX(), position.getY()), name + " 클론");
+        return new Robot(position, name + " 클론");
     }
 
     @Override

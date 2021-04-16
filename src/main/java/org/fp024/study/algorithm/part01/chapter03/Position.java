@@ -8,11 +8,11 @@ import lombok.Getter;
 public class Position {
     // x 좌표
     @Getter
-    private int x;
+    private final int x;
 
     // y 좌표
     @Getter
-    private int y;
+    private final int y;
 
     /**
      * 위치를 생성한다.
@@ -29,18 +29,20 @@ public class Position {
      * X방향으로 xDelta만큼 이동한다.
      *
      * @param xDelta X방향의 이동거리
+     * @return 새로운 좌표
      */
-    public void moveX(int xDelta) {
-        this.x += xDelta;
+    public Position moveX(int xDelta) {
+        return new Position(x + xDelta, y);
     }
 
     /**
      * Y방향으로 yDelta만큼 이동한다
      *
      * @param yDelta Y방향의 이동거리
+     * @return 새로운 좌표
      */
-    public void moveY(int yDelta) {
-        this.y += yDelta;
+    public Position moveY(int yDelta) {
+        return new Position(x, y + yDelta);
     }
 
     /**
@@ -48,10 +50,10 @@ public class Position {
      *
      * @param xDelta X방향의 이동거리
      * @param yDelta Y방향의 이동거리
+     * @return 새로운 좌표
      */
-    public void moveXY(int xDelta, int yDelta) {
-        moveX(xDelta);
-        moveY(yDelta);
+    public Position moveXY(int xDelta, int yDelta) {
+        return new Position(x + xDelta, y + yDelta);
     }
 
     @Override
