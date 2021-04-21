@@ -5,8 +5,13 @@ import java.util.stream.IntStream;
 
 /**
  * 배열로 구현한 스택
+ * <p>
+ * MyStack 을 Generic으로 바꿀 때, 저장 배열은 그대로 Object[] 로 두고...
+ * push도 T타입을 그대로 Object[]에 넣으면 되고...
+ * pop일 때는 Object[]에서 꺼낸 Object를 T강제 형변환 해야하는데...
+ * ArrayList의 get()부분을 보았을 때도  @SuppressWarnings("unchecked") 이게 붙어있다. ㅎㅎ
  */
-class MyStack {
+class MyStack<T> {
     // 스택의 본체
     private final Object[] stack;
     // 스택의 크기
@@ -58,11 +63,19 @@ class MyStack {
     }
 
     /**
+     * null 로 클리어
+     */
+    public void nullClear() {
+        IntStream.range(0, sp).forEach(i -> stack[i] = null);
+        clear();
+    }
+
+    /**
      * 스택에 데이터를 쌓는다
      *
      * @param x 쌓을 데이터
      */
-    public void push(Object x) {
+    public void push(T x) {
         if (sp >= stackSize) {
             error("Stack overflow");
         }
@@ -71,14 +84,15 @@ class MyStack {
 
     /**
      * 스택에서 데이터를 꺼낸다
-     *
+     *  T 타입으로 강제 형변환 필요.
      * @return 스택에서 꺼낸 데이터
      */
-    public Object pop() {
+    @SuppressWarnings("unchecked")
+    public T pop() {
         if (sp <= 0) {
             error("Stack underflow");
         }
-        return stack[--sp];
+        return (T) stack[--sp];
     }
 
     /**
