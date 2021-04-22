@@ -33,6 +33,27 @@ class Calculator {
         return stack.pop();
     }
 
+    /**
+     * 테스트 검증용 메시지 보관
+     */
+    private static String RESULT_MESSAGE = "";
+
+    /**
+     * 연산 결과가 누적되도록 하자
+     *
+     * @param resultMessage 누적할 결과 메시지
+     */
+    public static void appendResultMessage(String resultMessage) {
+        RESULT_MESSAGE = RESULT_MESSAGE + resultMessage + "\r\n";
+    }
+
+    public static void clearMessage() {
+        RESULT_MESSAGE = "";
+    }
+
+    public static String getResultMessage() {
+        return RESULT_MESSAGE;
+    }
 
     /**
      * 역 폴란드 전자 계산기의 메인 프로그램
@@ -69,7 +90,7 @@ class Calculator {
                 while (Character.isDigit(ch)) {
                     num = 10 * num + (ch - '0');
                     c = input.read();
-                    c = (char) c;
+                    ch = (char) c;
                 }
                 input.unread(c); // 숫자가 아닌 문자를 하나 읽었기 때문에 되돌림
                 push(stack, num);
@@ -97,7 +118,9 @@ class Calculator {
                         break;
                     case '\n':  // '\n' 결과를 표시한다.
                         if (!stack.isEmpty()) {
-                            System.out.println("답은" + pop(stack) + "입니다.");
+                            String resultMessage = "답은 " + pop(stack) + " 입니다.";
+                            appendResultMessage(resultMessage);
+                            System.out.println(resultMessage);
                         }
                         stack.clear();
                         break;
@@ -106,9 +129,9 @@ class Calculator {
                     case '\r':
                         break;
                     default: // 그외의 문자라면 에러
-                        System.out.println("올바르지 않은 문자" + ch + "가 있습니다.");
-                        System.out.println("다시 입력해 주십시오.");
-
+                        String message = "올바르지 않은 문자 " + ch + "가 있습니다.\r\n다시 입력해 주십시오.";
+                        appendResultMessage(message);
+                        System.out.println(message);
                         // 개행 문자까지 지나친 후 스택을 비운다
                         while ((c = input.read()) != -1 & c != '\n')
                             ;
