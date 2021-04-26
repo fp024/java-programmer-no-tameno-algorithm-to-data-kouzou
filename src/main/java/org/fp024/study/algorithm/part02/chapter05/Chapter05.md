@@ -11,7 +11,7 @@
     }
     ```
     * 링크 방문
-        ```java
+        ```
         for (Cell p = header; p != null; p=p.next) {
             System.out.println(p.value);
         }
@@ -36,10 +36,10 @@
        `x.next = p.next`
     3. (책에는 언급이 없지만...) 그러면 이때. p의 value와 next 및 p자체를 null로 비우면 되는것인지?  
        이렇게 까지 해야하는지?
-       ```java
+       ```
        p.value = null
-       p.next=null
-       p=null
+       p.next = null
+       p = null
        ```
     
 * 연결 리스트에서 어떤 요소를 지정하여 삭제하는 것은 불가능
@@ -48,6 +48,15 @@
 #### 5.1.3 연결 리스트의 조작
 * Cell, CellTest 참조
 * 요소의 삭제
+    * CellTest.testRemoveCell()
+* 경계 조건의 취급
+    * MyLinkedList
+    
+
+
+    
+    
+
 
 
 #### 5.1.4 연결 리스트에 대한 이터레이터

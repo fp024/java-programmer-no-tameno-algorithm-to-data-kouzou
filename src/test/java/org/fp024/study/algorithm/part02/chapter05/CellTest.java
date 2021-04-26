@@ -77,7 +77,7 @@ class CellTest {
 
         Cell<Integer> last = null;
         // 최초의 요소를 header.next로 취급
-        for(Cell<Integer> p = header.getNext(); p != null; p = p.getNext()) {
+        for (Cell<Integer> p = header.getNext(); p != null; p = p.getNext()) {
             logger.info(p.toString());
             last = p;
         }
@@ -86,13 +86,58 @@ class CellTest {
 
     /**
      * 요소의 삭제
-     *
+     * 변수 x가 가리키고 있는 셀의 바로 다음 요소를 삭제한다.
+     * x -> y -> z
      */
     @Test
     void testRemoveCell() {
+        Cell<String> header = new Cell<>(null);
 
+        Cell<String> x = new Cell<>("x");
+        header.setNext(x);
+
+        Cell<String> y = new Cell<>("y");
+        x.setNext(y);
+
+        Cell<String> z = new Cell<>("z");
+        y.setNext(z);
+
+        // x 다음 y를 제거  ==>  header -> x -> z
+        assertEquals("y", removeNext(x));
+
+        // z 다음을 제거 시도, 다음이 없기 때문에 예외..
+        assertThrows(IllegalArgumentException.class, () -> removeNext(z));
+
+        // x로 부터 시작하는 연결리스트만 끊겼을 뿐, y의 참조는 그대로 남아있음
+        // y: Cell(next=Cell(next=null, data=z), data=y)
+        logger.info("y: {}", y);
+
+
+        // 처음요소 삭제...  List 5.5에 해당.
+        //   header -> x -> z  에서  x를 삭제
+        assertEquals("x", removeNext(header));
+        logger.info("header: {}", header);
+
+        //   header -> z  에서  z를 삭제
+        assertEquals("z", removeNext(header));
+
+        // 연결리스트가 빈 상황에서 삭제시도 하여 오류
+        assertThrows(IllegalArgumentException.class, () -> removeNext(header));
+
+        // 저자님이 부분 코드만 주셔서, 상상해서 상황 코드를 만들었음.
     }
 
+
+    <T extends Comparable<T>> T removeNext(Cell<T> current) {
+        Cell<T> p = current.getNext();
+
+        if (p == null) {
+            throw new IllegalArgumentException("다음 셀이 없기 때문에 삭제 할 수 없음");
+        }
+
+        current.setNext(p.getNext());
+        return p.getData(); // 삭제된 셀의 데이터를 변수 data 에 보관
+    }
 
 }
 

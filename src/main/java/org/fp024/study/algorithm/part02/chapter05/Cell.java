@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-class Cell<T> {
+class Cell<T extends Comparable<T>> {
     private Cell<T> next;
     private T data;
 
