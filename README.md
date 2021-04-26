@@ -24,3 +24,5 @@
   * Calcular.java -> Calculator.java
 * p125. 경계조건2에서 newCell의 삽입되는 위치가 header 바로 다음이여아하는데,  
   그 다음 지점에 연결되어있습니다.
+* p129. 38번째 주석  예와 => 예외
+

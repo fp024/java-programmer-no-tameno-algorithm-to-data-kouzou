@@ -1,5 +1,8 @@
 package org.fp024.study.algorithm.part02.chapter05;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * 연결 리스트
  * 항상 요소(정수)가 오름차순이 되도록 한다.
@@ -59,6 +62,7 @@ class MyLinkedList<T extends Comparable<T>> {
 
     /**
      * 연결리스트의 내용을 문자열로 반환
+     *
      * @return 연결 리스트의 내용
      */
     @Override
@@ -72,11 +76,58 @@ class MyLinkedList<T extends Comparable<T>> {
     }
 
     /**
-     * MyLinkedList의 Iterator 구현 전...
+     * MyLinkedList의 Iterator 구현
      */
-    class MyLinkedListIterator {
-        public MyLinkedListIterator(MyLinkedList<T> myLinedList) {
+    class MyLinkedListIterator implements Iterator<T> {
+        // 현재 셀
+        private Cell<T> p;
 
+        /**
+         * 이터레이터를 생성한다.
+         *
+         * @param list 이터레이터의 대상이 되는 MyLinkedList 객체
+         */
+        public MyLinkedListIterator(MyLinkedList<T> list) {
+            // 현재 셀을 리스트의 더미 셀로 설정함
+            p = list.header;
+        }
+
+        /**
+         * 다음 요소가 있다면 true를 반환한다.
+         *
+         * @return 다음 요소가 있다면 true, 없다면 false
+         */
+        @Override
+        public boolean hasNext() {
+            return p.getNext() != null;
+        }
+
+        /**
+         * 다음 요소를 반환한다.
+         *
+         * @return 다음 요소의 값
+         */
+        @Override
+        public T next() {
+            // 다음 요소가 존재하지 않는 다면 예외 NoSuchElementException 을 던진다.
+            if (p.getNext() == null) {
+                throw new NoSuchElementException();
+            }
+
+            p = p.getNext();
+            return p.getData();
+        }
+
+        /**
+         * 바로 전에 next가 반환한 요소를 삭제한다.
+         * 
+         * Iterator 인터페이스에 default 메서드로서 remove() 가 있는데, 거기서도 UnsupportedOperationException 예외를 던진다
+         * 반드시 구현할 필요는 없는 메서드.
+         */
+        @Override
+        public void remove() {
+            // 이 메서드는 구현하지 않았음.
+            throw new UnsupportedOperationException();
         }
     }
 }

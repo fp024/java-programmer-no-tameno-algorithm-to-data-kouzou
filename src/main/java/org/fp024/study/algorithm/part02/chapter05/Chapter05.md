@@ -51,19 +51,15 @@
     * CellTest.testRemoveCell()
 * 경계 조건의 취급
     * MyLinkedList
-    
-
-
-    
-    
-
-
+* Generic 을 적용해봄
 
 #### 5.1.4 연결 리스트에 대한 이터레이터
+* MyLinkedList.MyLinkedListIterator 참조
 
 
 
 ### 5.2 순환 리스트
+* 연결리스트의 마지막 참조의 다음요소가 처음요소를 참조
 
 #### 5.2.1 순환 리스트란?
 
