@@ -62,11 +62,26 @@
 * 연결리스트의 마지막 참조의 다음요소가 처음요소를 참조
 
 #### 5.2.1 순환 리스트란?
+* 요소가 고리형태로 결합되어있어 엄밀하게 말하면 처음이나 마지막 요소란느 것은 없다.
 
 #### 5.2.2 순환 리스트의 조작
+```java
+class CellCircular {
+    CellCircular next;
+    int value;
+}
+```
+* next: 다음 셀로의 링크
+* value: 셀의 값
+
+```
+CellCircular ptr;
+```
+* ptr:  순환 리스트의 링크를 대입
+    * ptr이 null이라면 순환 리스트는 비어있는 것으로 간주
 
 #### 5.2.3 리스트의 헤드를 이용한 순환 리스트
-
+* PureCellCircularTest, CellCircularTest 참조
 
 
 ### 5.3 이중 연결 리스트
