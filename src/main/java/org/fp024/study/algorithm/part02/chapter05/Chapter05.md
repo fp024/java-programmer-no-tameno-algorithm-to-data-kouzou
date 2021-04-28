@@ -84,10 +84,20 @@ CellCircular ptr;
 * PureCellCircularTest, CellCircularTest 참조
 
 
+
 ### 5.3 이중 연결 리스트
+* 다음 셀로의 링크 뿐만 아니라 앞의 셀의 링크도 가진 리스트
 
 #### 5.3.1 이중 연결 리스트란?
+* 리스트의 앞뒤로 자유롭게 이동할 수 있음
+* 지정한 셀, 또는 지정한 셀의 앞의 요소 삭제도 가능함
+* 연결리스트에 비해 여분의 링크가 하나 더 필요 (전방 탐색용)
 
 #### 5.3.2 이중 연결 리스트의 조작
+* CellDoubleTest 참조
+    * 저자님이 리스트의 head 를 이용했다.
+        * 순환 리스트로 되어있고, 마지막 요소의 next가 head를 참조함
 
 #### 5.3.3 이중 연결 리스트의 구현
+* MyDoublyLinkedList, MyDoublyLinkedListTest 참조
+* MyStack2, MyStack2Test 참조
