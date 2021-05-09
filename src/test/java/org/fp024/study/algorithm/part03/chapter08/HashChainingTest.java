@@ -37,7 +37,7 @@ class HashChainingTest {
                 assertEquals("one", WORDS[i], "등록실패한 단어" + WORDS[i] + ", 인덱스번호:" + i);
             }
         }
-        LOGGER.info(HASH_CHAINING.toString());
+        LOGGER.info("\n{}", HASH_CHAINING);
     }
 
 

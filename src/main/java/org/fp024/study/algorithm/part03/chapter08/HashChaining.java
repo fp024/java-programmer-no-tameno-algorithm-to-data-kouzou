@@ -7,7 +7,7 @@ class HashChaining {
     /**
      * 연결 리스트의 셀
      */
-    private class Cell {
+    private static class Cell {
         // 키
         MyKey key;
         // 데이터
@@ -138,13 +138,13 @@ class HashChaining {
         }
 
         // 첫번 째 셀부터 진행.
-        Cell current;
-        Cell next;
+        Cell currentCell;
+        Cell nextCell;
         // 리스트의 두 번째 셀 이후부터 순서대로 체크한다.
-        for (current = table[hash], next = current.next; next != null; current = next, next = next.next) {
+        for (currentCell = table[hash], nextCell = currentCell.next; nextCell != null; currentCell = nextCell, nextCell = nextCell.next) {
             // 첫번 째 셀부터 진행하지만 next와 비교하는 이유는, 첫 번째는 직전 if문에서 삭제 대상인지 검사를 했다.
-            if (key.equals(next.key)) {
-                current.next = next.next;
+            if (key.equals(nextCell.key)) {
+                currentCell.next = nextCell.next;
                 nElements--;
                 return true;
             }
