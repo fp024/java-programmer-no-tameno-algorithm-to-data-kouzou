@@ -4,8 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import static org.fp024.study.algorithm.part03.chapter09.BinarySearchTree.Node;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -203,4 +202,233 @@ class BinarySearchTreeTest {
         logger.info(bSearchTreeFirst.toString());
     }
 
+
+    /**
+       9.4 자식이 없는 노드(리프)의 삭제
+                9
+               /
+              5
+            /   \
+          1     7
+
+
+     */
+    Node<Integer> createNodeFig_9_4_a() {
+        Node<Integer> root = new Node<>(9);
+        Node<Integer> a = new Node<>(5);
+        Node<Integer> b = new Node<>(1);
+        Node<Integer> c = new Node<>(7);
+
+        root.left = a;
+        a.left = b;
+        a.right = c;
+        return root;
+    }
+    /**
+        [ 5 || 9 || null ]
+        [ null || 5 || 7 ]
+        [ null || 7 || null ]
+
+                9
+              /
+            5
+             \
+              7
+     */
+    @Test
+    void testBinarySearchTreeDeleteNoChildNode() {
+        BinarySearchTree<Integer> bSearchTree = new BinarySearchTree<>(createNodeFig_9_4_a());
+        bSearchTree.delete(1);
+        logger.info(bSearchTree.toString());
+        assertNull(bSearchTree.search(1));
+    }
+
+
+    /**
+        9.5 자식이 하나인 노드를 삭제  (5를 삭제하면..)
+                9
+              /  \
+             5   14
+            /
+           3
+          /  \
+         1   4
+
+     */
+    Node<Integer> createNodeFig_9_5_a() {
+        Node<Integer> root = new Node<>(9);
+        Node<Integer> a = new Node<>(5);
+        Node<Integer> b = new Node<>(14);
+        Node<Integer> c = new Node<>(3);
+        Node<Integer> d = new Node<>(1);
+        Node<Integer> e = new Node<>(4);
+
+        root.left = a;
+        root.right = b;
+
+        a.left = c;
+
+        c.left = d;
+        c.right = e;
+
+        return root;
+    }
+
+    /**
+         [ 3 || 9 || 14 ]
+         [ 1 || 3 || 4 ]
+         [ null || 1 || null ]
+         [ null || 4 || null ]
+         [ null || 14 || null ]
+
+                 9
+               /  \
+              3   14
+            /  \
+           1    4
+
+     */
+    @Test
+    void testBinarySearchTreeDeleteHasOneChildNode() {
+        BinarySearchTree<Integer> bSearchTree = new BinarySearchTree<>(createNodeFig_9_5_a());
+        bSearchTree.delete(5);
+        logger.info(bSearchTree.toString());
+        assertNull(bSearchTree.search(5));
+    }
+
+
+
+    /**
+        9.6 자식이 하나인 노드를 삭제  (7를 삭제하면..)
+
+                         20
+                       /   \
+                     7      23
+                   /  \       \
+                 4    18       29
+               /  \     \
+              2   5     10
+                         \
+                          15
+
+     */
+    Node<Integer> createNodeFig_9_6_a() {
+        Node<Integer> root = new Node<>(20);
+        Node<Integer> a = new Node<>(7);
+        Node<Integer> b = new Node<>(23);
+        Node<Integer> c = new Node<>(4);
+        Node<Integer> d = new Node<>(18);
+        Node<Integer> e = new Node<>(29);
+        Node<Integer> f = new Node<>(2);
+        Node<Integer> g = new Node<>(5);
+        Node<Integer> h = new Node<>(10);
+        Node<Integer> i = new Node<>(15);
+
+        root.left = a;
+        root.right = b;
+
+        a.left = c;
+        a.right = d;
+
+        b.right = e;
+
+        c.left = f;
+        c.right = g;
+
+        d.left = h;
+        h.right = i;
+
+        return root;
+    }
+
+    /**
+     [ 10 || 20 || 23 ]
+     [ 4 || 10 || 18 ]
+     [ 2 || 4 || 5 ]
+     [ null || 2 || null ]
+     [ null || 5 || null ]
+     [ 15 || 18 || null ]
+     [ null || 15 || null ]
+     [ null || 23 || 29 ]
+     [ null || 29 || null ]
+
+                  20
+                /    \
+               10    23
+             /   \     \
+            4     18    29
+          /  \    /
+         2   5   15
+
+     */
+    @Test
+    void testBinarySearchTreeDeleteHasTwoChildNode() {
+        BinarySearchTree<Integer> bSearchTree = new BinarySearchTree<>(createNodeFig_9_6_a());
+        bSearchTree.delete(7);
+        logger.info(bSearchTree.toString());
+        assertNull(bSearchTree.search(7));
+
+        assertFalse(bSearchTree.delete(7));
+    }
+
+
+    /**
+     9.10 자식이 하나인 노드를 삭제  (5를 삭제하면..)
+                9
+               /
+              5
+            /  \
+           1   7
+              / \
+             6   8
+     */
+    Node<Integer> createNodeFig_9_10_a() {
+        Node<Integer> root = new Node<>(9);
+        Node<Integer> a = new Node<>(5);
+        Node<Integer> b = new Node<>(1);
+        Node<Integer> c = new Node<>(7);
+        Node<Integer> d = new Node<>(6);
+        Node<Integer> e = new Node<>(8);
+
+        root.left = a;
+
+        a.left = b;
+        a.right = c;
+
+        c.left = d;
+        c.right = e;
+        return root;
+    }
+
+    /**
+        [ 6 || 9 || null ]
+        [ 1 || 6 || 7 ]
+        [ null || 1 || null ]
+        [ null || 7 || 8 ]
+        [ null || 8 || null ]
+
+                     9
+                   /
+                  6
+                /  \
+               1   7
+                    \
+                     8
+     */
+    @Test
+    void testBinarySearchTreeDeleteHasTwoChildNode02() {
+        BinarySearchTree<Integer> bSearchTree = new BinarySearchTree<>(createNodeFig_9_10_a());
+        bSearchTree.delete(5);
+        logger.info(bSearchTree.toString());
+        assertNull(bSearchTree.search(5));
+    }
+
+    /**
+     * 이진 트리를 중위순회하면 모든 요소를 오름차순으로 표시할 수 있다.
+     */
+    @Test
+    void testShowAll() {
+        BinarySearchTree<Integer> bSearchTree = new BinarySearchTree<>(createNodeFig_9_6_a());
+        assertEquals(":2::4::5::7::10::15::18::20::23::29:",bSearchTree.showAll());
+    }
 }

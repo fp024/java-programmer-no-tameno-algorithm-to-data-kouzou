@@ -98,13 +98,13 @@ class BinarySearchTree<T extends Comparable<T>> {
      */
     public Node<T> insert(T key) {
         // 입력할 key의 부모노드.
-        Node<T> parentNode = null;
+        Node<T> lastVisitedParentNode = null;
 
         for (Node<T> node = this.root; node != null; ) {
             // Node를 찾는 for루프에서 마지막 not null 이 아닌
             // node 대입이 결국 지금 들어갈 키의 부모라고 생각해서 그렇했다.
             // node 값을 자식노드로 바꾸기전에 수행해야함.
-            parentNode = node;
+            lastVisitedParentNode = node;
 
             int compareResult = node.data.compareTo(key);
             if (compareResult < 0) {  // 비교 node가 key보다 작음
@@ -117,16 +117,124 @@ class BinarySearchTree<T extends Comparable<T>> {
         }
 
         Node<T> newNode = new Node<>(key);
-        if (parentNode == null) {
+        if (lastVisitedParentNode == null) {
             this.root = newNode;
-        } else if (parentNode.data.compareTo(key) < 0) {
-            parentNode.right = newNode;
+        } else if (lastVisitedParentNode.data.compareTo(key) < 0) {
+            lastVisitedParentNode.right = newNode;
         } else {
-            parentNode.left = newNode;
+            lastVisitedParentNode.left = newNode;
         }
 
         return newNode;
     }
+
+
+    /**
+     * 이진 트리에서 키 값이 key인 노드를 삭제한다.
+     *
+     * @param key 삭제할 키
+     * @return 삭제에 성공하면 true, 요소가 존재하지 않으면 false를 반환
+     */
+    public boolean delete(T key) {
+        // 검색되었을 경우 삭제할 key의 부모노드.
+        Node<T> lastVisitedParentNode = null;
+        boolean isLeftChild = false;
+
+        for (Node<T> node = this.root; node != null; ) {
+            int compareResult = node.data.compareTo(key);
+            if (compareResult == 0) { // 삭제할 대상을 찾음
+                // 1. 삭제할 노드가 자식이 없는 leaf 노드
+                if (node.left == null && node.right == null) {
+                    if (lastVisitedParentNode == null) {
+                        this.root = null;
+                    } else if (isLeftChild) {
+                        lastVisitedParentNode.left = null;
+                    } else {
+                        lastVisitedParentNode.right = null;
+                    }
+                } else if (node.left == null) {
+                    // 2-1. 삭제할 노드의 자식이 오른쪽만 있음
+                    if (lastVisitedParentNode == null) {
+                        this.root = node.right;
+                    } else if (isLeftChild) {
+                        lastVisitedParentNode.left = node.right;
+                    } else {
+                        lastVisitedParentNode.right = node.right;
+                    }
+                } else if (node.right == null) {
+                    // 2-2. 삭제할 노드의 자식이 왼쪽만 있음
+                    if (lastVisitedParentNode == null) {
+                        this.root = node.left;
+                    } else if (isLeftChild) {
+                        lastVisitedParentNode.left = node.left;
+                    } else {
+                        lastVisitedParentNode.right = node.left;
+                    }
+                } else { // (중요) 좌우 2개의 자식을 가지고 있음.
+                    // 오른쪽 서브트리의 가장 작은 요소를 제거한 뒤 변수에 넣는다.
+                    Node<T> minNodeOfTargetRight = deleteMin(node, node.right);
+
+                    // 현재 처리
+                    if (lastVisitedParentNode == null) {
+                        this.root = minNodeOfTargetRight;
+                    } else if (isLeftChild) {
+                        lastVisitedParentNode.left = minNodeOfTargetRight;
+                    } else {
+                        lastVisitedParentNode.right = minNodeOfTargetRight;
+                    }
+
+                    minNodeOfTargetRight.left = node.left;
+                    minNodeOfTargetRight.right = node.right;
+                }
+                return true; // 삭제에 성공함.
+            } else if (compareResult < 0) {  // 비교 node가 key보다 작음
+                // 순서가 중요하다. 노드를 갱신하기 전에 최종 방문 노드를 저장해야한다.
+                lastVisitedParentNode = node;
+                node = node.right;
+                isLeftChild = false;
+            } else { // 비교 node가 key보다 큼
+                lastVisitedParentNode = node;
+                node = node.left;
+
+                isLeftChild = true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     *  ( TODO: 이해가 잘 안감, 이부분은 다시보자 )
+     * 이진 탐색 트리에서 가장 작은 요소를 삭제한다.
+     * parent 는 삭제 대상의 노드
+     * p는 삭제대상 노드의 오른쪽 노드
+     *
+     * @param parent node의 부모노드
+     * @param p      이진 탐색트리 (p를 루트로 시작하는 서브트리로 이해하자!)
+     *               node 노드로 시작하는 트리에서 가장 작은 값을 찾는 것
+     * @return 삭제한 노드
+     */
+    private Node<T> deleteMin(Node<T> parent, Node<T> p) {
+        boolean isLeftChild = false;
+        // p가 parent의 왼쪽 자식이라면 true,
+        // 오른쪽 자식이라면 false,
+        // 메서드가 호출한 시점에서는
+        // p가 parent의 오른쪽 자식이기 때문에, 초기값은 false 이다.
+
+        while (p.left != null) {
+            parent = p;
+            isLeftChild = true;
+            p = p.left;
+        }
+
+        if (isLeftChild) {  // 가장 작은 요소 제거
+            parent.left = p.right;
+        } else {
+            parent.right = p.right;
+        }
+        return p;
+    }
+
 
     @Override
     public String toString() {
@@ -155,6 +263,24 @@ class BinarySearchTree<T extends Comparable<T>> {
             result += toString(node.right);
         }
         return result;
+    }
+
+    /**
+     * 이진 탐색 트리를 중위 순회
+     */
+    private String inorder(Node<T> p) {
+        if (p == null) {
+            return "";
+        } else {
+            return inorder(p.left) + ":" + p.data + ":" + inorder(p.right);
+        }
+    }
+
+    /**
+     * 이진 탐색 트리의 모든 요소를 오름 차순으로 표시한다.
+     */
+    public String showAll() {
+        return inorder(root);
     }
 
 }
