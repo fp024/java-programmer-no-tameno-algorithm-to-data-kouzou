@@ -1,8 +1,11 @@
 package org.fp024.study.algorithm.part03.chapter09;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 이진 탐색트리
  */
+@Slf4j
 class BinarySearchTree<T extends Comparable<T>> {
     // 이진 탐색 트리의 루트
     private Node<T> root;
@@ -172,8 +175,11 @@ class BinarySearchTree<T extends Comparable<T>> {
                     }
                 } else { // (중요) 좌우 2개의 자식을 가지고 있음.
                     // 오른쪽 서브트리의 가장 작은 요소를 제거한 뒤 변수에 넣는다.
+                    logger.debug("\n====변경전====\n{}\n========\n", toString(root));
+                    
                     Node<T> minNodeOfTargetRight = deleteMin(node, node.right);
 
+                    logger.debug("\n====최소노드삭제 후====\n{}\n========\n", toString(root));
                     // 현재 처리
                     if (lastVisitedParentNode == null) {
                         this.root = minNodeOfTargetRight;
@@ -183,8 +189,12 @@ class BinarySearchTree<T extends Comparable<T>> {
                         lastVisitedParentNode.right = minNodeOfTargetRight;
                     }
 
+                    logger.debug("\n====부모에 연결후 ====\n{}\n========\n", toString(root));
+
                     minNodeOfTargetRight.left = node.left;
                     minNodeOfTargetRight.right = node.right;
+
+                    logger.debug("\n====신규노드에 삭제 노드의 좌/우 연결 후====\n{}\n========\n", toString(root));
                 }
                 return true; // 삭제에 성공함.
             } else if (compareResult < 0) {  // 비교 node가 key보다 작음
@@ -204,7 +214,6 @@ class BinarySearchTree<T extends Comparable<T>> {
 
 
     /**
-     *  ( TODO: 이해가 잘 안감, 이부분은 다시보자 )
      * 이진 탐색 트리에서 가장 작은 요소를 삭제한다.
      * parent 는 삭제 대상의 노드
      * p는 삭제대상 노드의 오른쪽 노드
@@ -229,7 +238,7 @@ class BinarySearchTree<T extends Comparable<T>> {
 
         if (isLeftChild) {  // 가장 작은 요소 제거
             parent.left = p.right;
-        } else {
+        } else { // 내부에서 호출할 때는
             parent.right = p.right;
         }
         return p;

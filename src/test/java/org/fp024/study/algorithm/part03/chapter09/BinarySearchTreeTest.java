@@ -431,4 +431,57 @@ class BinarySearchTreeTest {
         BinarySearchTree<Integer> bSearchTree = new BinarySearchTree<>(createNodeFig_9_6_a());
         assertEquals(":2::4::5::7::10::15::18::20::23::29:",bSearchTree.showAll());
     }
+
+
+
+    /**
+     deleteMin 함수에서 isLeftChild 가 아닐 경우를 확인하기 위한 테스트
+     5를 삭제한다고 할 때,...
+     삭제하려는 노드가  양쪽 자식은 가지고 있지만...
+                 9
+                /
+               5
+             /  \
+            1   7
+                 \
+                  8
+     */
+    Node<Integer> createNodeFig_custom_01() {
+        Node<Integer> root = new Node<>(9);
+        Node<Integer> a = new Node<>(5);
+        Node<Integer> b = new Node<>(1);
+        Node<Integer> c = new Node<>(7);
+        Node<Integer> d = new Node<>(8);
+
+        root.left = a;
+
+        a.left = b;
+        a.right = c;
+
+        c.right = d;
+        return root;
+    }
+
+    /**
+        [ 7 || 9 || null ]
+        [ 1 || 7 || 8 ]
+        [ null || 1 || null ]
+        [ null || 8 || null ]
+
+                9
+              /
+             7
+           /  \
+         1     8
+
+     */
+    @Test
+    void testBinarySearchTreeDeleteHasTwoChildNode03() {
+        BinarySearchTree<Integer> bSearchTree = new BinarySearchTree<>(createNodeFig_custom_01());
+        bSearchTree.delete(5);
+        logger.info(bSearchTree.toString());
+        assertNull(bSearchTree.search(5));
+    }
+
+
 }
