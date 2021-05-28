@@ -31,4 +31,7 @@
   `table[h].data = nall` -> `null`
 * p226 List 9.4의 insert 함수
   * 주석에는 이미 등록되어있다면 null 반환처리가 되야하는데, 이미 등록된 값을 반환하게 되어있다.
-
+* p262 217번쨰 줄 lowest 변수 선언
+    * 사용처가 없는 변수, lowest 관련은 InsertAuxResult의 필드 lowest만 사용되고 있음.
+* p268 509번째 줄 주석 nod => node
+* p269 526번째 줄 주석 필요한다 => 필요하다
