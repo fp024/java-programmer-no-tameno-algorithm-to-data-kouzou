@@ -1,8 +1,9 @@
 package org.fp024.study.algorithm.part04.common;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 public class RandomArrayUtil {
     private static final Random RANDOM = new Random();
@@ -21,5 +22,14 @@ public class RandomArrayUtil {
             }
         }
         return intArray;
+    }
+
+    /**
+     * 정렬된 배열을 섞어도 잘 섞이게 되는 것 같다.
+     */
+    public static int[] createRandomArrayWithoutSet(final int maxValue) {
+        List<Integer> list = IntStream.rangeClosed(1, maxValue).boxed().collect(toList());
+        Collections.shuffle(list);
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }

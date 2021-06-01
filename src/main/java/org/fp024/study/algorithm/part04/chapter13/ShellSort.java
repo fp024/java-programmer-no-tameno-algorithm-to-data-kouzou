@@ -55,6 +55,4 @@ class ShellSort {
         LOGGER.info("h:{}", hListLog);
         return h;
     }
-
-
 }
