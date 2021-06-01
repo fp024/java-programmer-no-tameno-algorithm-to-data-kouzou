@@ -4,11 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.fp024.study.algorithm.part04.common.RandomArrayUtil;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * 단순 소트 테스트
@@ -21,8 +19,8 @@ class SimpleSortTest {
     private final int[] intArray = RandomArrayUtil.createRandomArray(MAX_VALUE);
 
     // 저자님 예시 배열
-    private final static int[] BOOK_EXAMPLE_ARRAY = new int[]{20, 6, 55, 74, 3, 45, 13, 87, 46, 30};
-    private final static int[] BOOK_EXAMPLE_RESULT_ARRAY = new int[]{3, 6, 13, 20, 30, 45, 46, 55, 74, 87};
+    private final int[] bookExampleArray = new int[]{20, 6, 55, 74, 3, 45, 13, 87, 46, 30};
+    private final int[] bookExampleResultArray = new int[]{3, 6, 13, 20, 30, 45, 46, 55, 74, 87};
 
     void processSort(Runnable r, int[] intArray) {
         processSort(r, intArray, IntStream.rangeClosed(1, MAX_VALUE).toArray());
@@ -48,12 +46,12 @@ class SimpleSortTest {
 
     @Test
     void testInsertionSort() {
-        processSort(() -> InsertionSort.sort(BOOK_EXAMPLE_ARRAY), BOOK_EXAMPLE_ARRAY, BOOK_EXAMPLE_RESULT_ARRAY);
+        processSort(() -> InsertionSort.sort(bookExampleArray), bookExampleArray, bookExampleResultArray);
     }
 
     @Test
     void testInsertionSortOfAuthor() {
-        processSort(() -> InsertionSort.sortOfAuthor(BOOK_EXAMPLE_ARRAY), BOOK_EXAMPLE_ARRAY, BOOK_EXAMPLE_RESULT_ARRAY);
+        processSort(() -> InsertionSort.sortOfAuthor(bookExampleArray), bookExampleArray, bookExampleResultArray);
     }
 
 
