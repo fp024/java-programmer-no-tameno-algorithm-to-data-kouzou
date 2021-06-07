@@ -46,18 +46,29 @@ class QuickSortTest extends CommonSortTest {
 
     /**
      * 정렬된 배열을 썼을 때...
-     *
+     * (참고): logger로 너무 많은 텍스트를 출력하면 출력오류가 발생한다.  100,000 개까지 요소는 한번에 출력할 수 있지만,
+     *        그이상은 안된다. showElementLog 인자를 그때는 false로 줘서 로그를 출력하지 말자.
+     * <p>
+     * === 사양: Ryzen 3700x (100,000 오름차순 배열 기준)
      * 중간값 알고리즘을 쓰지 않을 때...
      * 수행시간: 1.3650545 seconds
-     *
-     * 중간값 알고리즘을 쓸때...
+     * <p>
+     * 중간값 알고리즘을 쓸때... (정렬범위 6이상일 때만 중간 값 구함, 그 미만은 정렬범위 마지막 값을 pivot으로 정함)
      * 수행시간: 0.0103953 seconds
+     *
+     * === 사양: Ryzen Threadripper 2950x (1,000,000 오름차순 배열 기준)
+     * 중간값 알고리즘을 쓰지 않을 때...
+     * 수행시간: 111.3393297 seconds
+     * <p>
+     * 중간값 알고리즘을 쓸때...  (정렬범위 3이상일 때 중간 값 구함, 그 미만은 정렬범위 마지막 값을 pivot으로 정함)
+     * 수행시간: 0.0307669 seconds
+     *
+     * 요소가 100만개일 때는 수행시간이 꽤 많이 차이가 난다.
      */
     @Test
     void testQuickSortByNonRecursiveNewWithOrderedArray() {
-        int[] intArray = IntStream.rangeClosed(1, 100000).toArray();
-        processSort(() -> QuickSortByNonRecursiveNew.sort(intArray, false), intArray);
+        int[] intArray = IntStream.rangeClosed(1, 1_000_000).toArray();
+        processSort(() -> QuickSortByNonRecursiveNew.sort(intArray, false), intArray, false);
     }
-
 
 }

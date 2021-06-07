@@ -34,11 +34,11 @@ class SimpleSortTest extends CommonSortTest {
 
     @Test
     void testInsertionSort() {
-        processSort(() -> InsertionSort.sort(bookExampleArray), bookExampleArray, bookExampleResultArray);
+        processSort(() -> InsertionSort.sort(bookExampleArray), bookExampleArray, bookExampleResultArray, true);
     }
 
     @Test
     void testInsertionSortOfAuthor() {
-        processSort(() -> InsertionSort.sortOfAuthor(bookExampleArray), bookExampleArray, bookExampleResultArray);
+        processSort(() -> InsertionSort.sortOfAuthor(bookExampleArray), bookExampleArray, bookExampleResultArray, true);
     }
 }

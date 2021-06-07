@@ -6,10 +6,10 @@ package org.fp024.study.algorithm.part04.chapter14;
 class QuickSortPartition {
     /**
      * 너무 작은 배열에 대해서는 할 필요가 없을 것 같다.
-     * 5이하의 거리에 대해서는 끝값을 반환하자
+     * 특정 수 이하의 거리에 대해서는 끝값을 반환하자
      */
     static int medianOfTree(int[] a, int l, int r) {
-        if (r - l < 5) {
+        if (r - l < 2) {
             return a[r];
         }
 
@@ -55,9 +55,9 @@ class QuickSortPartition {
         int j = r;     //     아래 i, j의 증감식을 전위식으로 해서 이런 방식으로 하신 것 같다.
 
         // 오른쪽 끝 요소를 추축으로 한다.
-         int pivot = a[r];
+        // int pivot = a[r];
         // 피벗을 중간값으로 설정한다.
-        //int pivot = medianOfTree(a, l, r) ;
+        int pivot = medianOfTree(a, l, r) ;
 
         // 포인터 i와 j가 충돌할 때까지 반복한다.
         while (true) {

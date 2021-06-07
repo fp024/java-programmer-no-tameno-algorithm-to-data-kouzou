@@ -10,15 +10,23 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 public abstract class CommonSortTest {
 
     protected void processSort(Runnable r, int[] intArray) {
-        processSort(r, intArray, IntStream.rangeClosed(1, intArray.length).toArray());
+        processSort(r, intArray, IntStream.rangeClosed(1, intArray.length).toArray(), true);
     }
 
-    protected void processSort(Runnable r, int[] intArray, int[] expectArray) {
-        logger.info("\n정렬 전: {}", intArray);
+    protected void processSort(Runnable r, int[] intArray, boolean showElementLog) {
+        processSort(r, intArray, IntStream.rangeClosed(1, intArray.length).toArray(), showElementLog);
+    }
+
+    protected void processSort(Runnable r, int[] intArray, int[] expectArray, boolean showElementLog) {
+        if(showElementLog) {
+            logger.info("\n정렬 전: {}", intArray);
+        }
         long start = System.nanoTime();
         r.run();
         long elapsed = System.nanoTime() - start;
-        logger.info("\n정렬 후: {}", intArray);
+        if(showElementLog) {
+            logger.info("\n정렬 후: {}", intArray);
+        }
         logger.info("수행시간: {} seconds", elapsed / 1_000_000_000.0);
         assertArrayEquals(expectArray, intArray);
     }
