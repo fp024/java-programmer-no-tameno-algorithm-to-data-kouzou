@@ -1,18 +1,12 @@
 package org.fp024.study.algorithm.part04.chapter15;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
 
 /**
  * 배열 버전 머지 소트
  */
 @Slf4j
 class MergeSortArray {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MergeSortArray.class);
-
     /**
      * 배열을 머지 소트 한다.
      * a[low] ~ a[high] 요소를 정렬한다.
@@ -41,7 +35,7 @@ class MergeSortArray {
         // 앞쪽 반요소를 그대로 작업용 배열에 복사한다.
 
         /*
-        for(int i = low; i <= mid; i++) {
+        for (int i = low; i <= mid; i++) {
             workingArray[i] = a[i];
         }
         */
