@@ -1,8 +1,8 @@
 package org.fp024.study.algorithm.part04.chapter15;
 
 import lombok.extern.slf4j.Slf4j;
-import org.fp024.study.algorithm.part04.common.CommonSortTest;
 import org.fp024.study.algorithm.part04.common.RandomArrayUtil;
+import org.fp024.study.algorithm.part04.common.SortTestHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -14,8 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @Slf4j
-class MergeSortListTest extends CommonSortTest {
-    private final static int[] ORIGIN_INT_ARRAY = RandomArrayUtil.createRandomArrayWithoutSet(100_000);
+class MergeSortListTest {
+    private static final int[] ORIGIN_INT_ARRAY = RandomArrayUtil.createRandomArrayWithoutSet(100_000);
+    private final static SortTestHelper util = SortTestHelper.getInstance();
     private final MergeSortList<Integer> mergeSortList = new MergeSortList<>();
 
     @Test
@@ -67,7 +68,7 @@ class MergeSortListTest extends CommonSortTest {
         Cell<Integer> unsortedCell = createTestLinkCell(list);
 
         // 정렬 수행
-        Cell<Integer> result = processSortOnlyTime(mergeSortList::mergeSortList, unsortedCell.next);
+        Cell<Integer> result = util.processSortOnlyTime(mergeSortList::mergeSortList, unsortedCell.next);
 
         // 정렬 검증
         Arrays.sort(intArray); // 비교 대상 배열을 Java 에서 제공하는 sort()를 실행하여 정렬된 내용으로 만든다.

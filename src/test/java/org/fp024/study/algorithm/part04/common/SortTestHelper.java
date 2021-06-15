@@ -7,17 +7,28 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+/**
+ * 정렬 테스트 도움 클래스
+ */
 @Slf4j
-public abstract class CommonSortTest {
-    protected void processSort(Runnable r, int[] intArray) {
+public class SortTestHelper {
+    private SortTestHelper() {
+        // 싱글톤 처리를 위해 private 생성자
+    }
+
+    public static SortTestHelper getInstance() {
+        return InnerInstanceClazz.instance;
+    }
+
+    public void processSort(Runnable r, int[] intArray) {
         processSort(r, intArray, IntStream.rangeClosed(1, intArray.length).toArray(), true);
     }
 
-    protected void processSort(Runnable r, int[] intArray, boolean showElementLog) {
+    public void processSort(Runnable r, int[] intArray, boolean showElementLog) {
         processSort(r, intArray, IntStream.rangeClosed(1, intArray.length).toArray(), showElementLog);
     }
 
-    protected void processSort(Runnable r, int[] intArray, int[] expectArray, boolean showElementLog) {
+    public void processSort(Runnable r, int[] intArray, int[] expectArray, boolean showElementLog) {
         if (showElementLog) {
             logger.info("\n정렬 전: {}", intArray);
         }
@@ -31,7 +42,6 @@ public abstract class CommonSortTest {
         assertArrayEquals(expectArray, intArray);
     }
 
-
     /**
      * 정렬 코드의 수행 시간만 재는 메서드
      * <p>
@@ -42,12 +52,16 @@ public abstract class CommonSortTest {
      * @param <T> 함수 입력값 타입
      * @return 정렬된 결과
      */
-    protected <T, R> R processSortOnlyTime(Function<T, R> f, T t) {
+    public <T, R> R processSortOnlyTime(Function<T, R> f, T t) {
         long start = System.nanoTime();
         R r = f.apply(t);
         long elapsed = System.nanoTime() - start;
         logger.info("수행시간: {} seconds", elapsed / 1_000_000_000.0);
         return r;
+    }
+
+    private static class InnerInstanceClazz {
+        private static final SortTestHelper instance = new SortTestHelper();
     }
 
 }
