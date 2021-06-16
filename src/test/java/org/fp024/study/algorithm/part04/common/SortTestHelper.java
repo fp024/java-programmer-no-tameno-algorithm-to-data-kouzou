@@ -2,6 +2,7 @@ package org.fp024.study.algorithm.part04.common;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
@@ -58,6 +59,20 @@ public class SortTestHelper {
         long elapsed = System.nanoTime() - start;
         logger.info("수행시간: {} seconds", elapsed / 1_000_000_000.0);
         return r;
+    }
+
+    /**
+     * 시간만 재는데 정렬결과를 반환하지 않는 메서드
+     *
+     * @param c   컨슈머
+     * @param t   컨슈머 인자 (정렬할 배열)
+     * @param <T> 컨슈머 인자 타입
+     */
+    public <T> void processSortOnlyTime(Consumer<T> c, T t) {
+        long start = System.nanoTime();
+        c.accept(t);
+        long elapsed = System.nanoTime() - start;
+        logger.info("수행시간: {} seconds", elapsed / 1_000_000_000.0);
     }
 
     private static class InnerInstanceClazz {

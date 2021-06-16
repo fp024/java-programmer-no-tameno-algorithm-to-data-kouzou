@@ -70,15 +70,11 @@ class MergeSortListTest {
         // 정렬 수행
         Cell<Integer> result = util.processSortOnlyTime(mergeSortList::mergeSortList, unsortedCell.next);
 
-        // 정렬 검증
-        Arrays.sort(intArray); // 비교 대상 배열을 Java 에서 제공하는 sort()를 실행하여 정렬된 내용으로 만든다.
-
         // 머지소트로 정렬된 연결리스트 결과의 정렬을 검증한다.
         Cell<Integer> current = result;
-        for (int i : intArray) {
+        for (int i = 1; i <= intArray.length; i++) {
             assertEquals(i, current.data);
             current = current.next;
         }
     }
-
 }
