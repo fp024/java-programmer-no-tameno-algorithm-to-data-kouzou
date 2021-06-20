@@ -2,8 +2,6 @@ package org.fp024.study.algorithm.part05.chapter18;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -28,33 +26,27 @@ class RepositoryTest {
  * <p>
  * (참고) mockito-inline 라이브러리가 포함되야한다.
  * mockito-junit-jupiter 는 반드시 필수 좋건은 아닌 것 같은데.. 같이 넣음.
+ *
+ * @BeforeAll, @AfterAll 에서 정적 멤버로 Mock 대상을 정의하면 전역적이라..
+ * try-resource 문에서 정의해도 괜찮아보임.
+ * MockedStatic 은 AutoCloseable 을 구현함.
  */
 class RepositoryMockTest {
-    static MockedStatic<DBResource> mockDBResource;
-
-    @BeforeAll
-    static void beforeAll() {
-        // 정적 메서드를 가진 DBResource 메서드를 Mocking
-        mockDBResource = mockStatic(DBResource.class);
-    }
-
     @Test
     void testRepository() {
-        // static 메서드가 반환하는 값을 다른 값으로 변경 조작
-        mockDBResource.when(() -> DBResource.getMySQLDBResource()).thenReturn(new MySQLDBResource("NewMySQL8DBResource"));
+        // 정적 메서드를 가진 DBResource 메서드를 Mocking
+        try (MockedStatic<DBResource> mockDBResource = mockStatic(DBResource.class)) {
+            // static 메서드가 반환하는 값을 다른 값으로 변경 조작
+            mockDBResource.when(() -> DBResource.getMySQLDBResource()).thenReturn(new MySQLDBResource("NewMySQL8DBResource"));
 
-        assertEquals("NewMySQL8DBResource", new Repository().getDBResourceName());
+            assertEquals("NewMySQL8DBResource", new Repository().getDBResourceName());
 
-        // 호출 실행 후, 검증
-        mockDBResource.verify(
-                DBResource::getMySQLDBResource,
-                times(1)
-        );
-    }
-
-    @AfterAll
-    static void afterAll() {
-        mockDBResource.close();
+            // 호출 실행 후, 검증
+            mockDBResource.verify(
+                    DBResource::getMySQLDBResource,
+                    times(1)
+            );
+        }
     }
 }
 
