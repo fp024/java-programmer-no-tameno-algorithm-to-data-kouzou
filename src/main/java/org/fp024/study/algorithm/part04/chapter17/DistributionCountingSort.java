@@ -19,8 +19,8 @@ class DistributionCountingSort {
         int[] count = new int[M + 1];
 
         // 키를 센다.
-        for (int i = 0; i < N; i++) {
-            count[a[i].getKey()]++;
+        for (BinSortData binSortData : a) {
+            count[binSortData.getKey()]++;
         }
 
         // count[M+1] {0:0, 1:(1), 2:(2), 3:0, 4:(1), 5:0, 6:0, 7:(2), 8:(1)   , .... M:0}

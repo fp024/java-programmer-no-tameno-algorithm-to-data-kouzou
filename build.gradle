@@ -14,6 +14,7 @@ ext.projectEncoding='UTF8'
 ext.lombokVersion='1.18.18'
 ext.junit5Version='5.7.1'
 ext.springVersion='5.2.15.RELEASE'
+ext.mokitoVersion='3.11.1'
 
 sourceCompatibility = "$javaVersion"
 targetCompatibility = "$javaVersion"
@@ -30,6 +31,8 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:${junit5Version}"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation "org.springframework:spring-test:${springVersion}"
+    testImplementation("org.mockito:mockito-inline:${mokitoVersion}")
+
 
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"

@@ -2,9 +2,10 @@
 <!DOCTYPE Configuration>
 <Configuration>
 	<!-- Appender, Layout 설정 -->
+	<!-- http://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout -->
 	<Appenders>
 		<Console name="console" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d %5p [%c] %m%n" />
+			<PatternLayout pattern="%d %5p [%c{1}] %m%n" />
 		</Console>
 	</Appenders>
 
