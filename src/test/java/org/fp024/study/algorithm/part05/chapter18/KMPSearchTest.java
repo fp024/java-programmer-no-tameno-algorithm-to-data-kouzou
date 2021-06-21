@@ -17,12 +17,12 @@ class KMPSearchTest {
     private final static String TEXT = "AABRAACADABRAACAADABRA";
 
     @Test
-    void testSort() {
+    void testSearch() {
         String pattern = "AACAA";
         int[][] dfa = KMPSearch.createDFA(pattern);
 
         logger.info("dfa: {}", Arrays.deepToString(dfa));
-        assertEquals(12, KMPSearch.sort(TEXT, pattern, dfa));
+        assertEquals(12, KMPSearch.search(TEXT, pattern, dfa));
     }
 
     @Test
@@ -31,7 +31,7 @@ class KMPSearchTest {
         int[][] dfa = KMPSearch.createDFA(pattern);
 
         logger.info("dfa: {}", Arrays.deepToString(dfa));
-        assertEquals(-1, KMPSearch.sort(TEXT, pattern, dfa));
+        assertEquals(-1, KMPSearch.search(TEXT, pattern, dfa));
     }
 
 }

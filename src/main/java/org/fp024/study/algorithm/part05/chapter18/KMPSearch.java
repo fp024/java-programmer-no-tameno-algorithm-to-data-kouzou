@@ -38,7 +38,7 @@ class KMPSearch {
      * @param text 패턴의 위치를 찾을 문자열
      * @return 패턴이 나타나는 인덱스 번호
      */
-    static int sort(String text, String pattern, int[][] dfa) {
+    static int search(String text, String pattern, int[][] dfa) {
         int i, j;
         int N = text.length();
         int M = pattern.length();
