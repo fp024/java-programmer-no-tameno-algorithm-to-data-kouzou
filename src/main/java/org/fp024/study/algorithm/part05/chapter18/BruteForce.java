@@ -23,8 +23,8 @@ class BruteForce {
             return NOT_FOUND_INDEX;
         }
 
-        for (int i = 0; i < length; i++) {
-            for (int p = 0; p <= patternLength - 1 && i + p < length; p++) {
+        for (int i = 0; i <= length - patternLength; i++) {
+            for (int p = 0; p <= patternLength - 1; p++) {
                 if (pattern.charAt(p) != text.charAt(i + p)) {
                     break;
                 }
