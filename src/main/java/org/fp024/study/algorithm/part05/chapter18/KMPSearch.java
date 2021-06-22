@@ -17,7 +17,7 @@ class KMPSearch {
      */
     static int[][] createDFA(String pattern) {
         int M = pattern.length();
-        int R = 256;
+        int R = 256; // 패턴의 문자가 Extended ASCII 까지만 지원
         int[][] dfa = new int[R][M];
 
         dfa[pattern.charAt(0)][0] = 1;
