@@ -1,5 +1,7 @@
 package org.fp024.study.algorithm.part06.chapter19;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 
 import static org.fp024.study.algorithm.part06.chapter19.NQueen.QueenPosition.FREE;
@@ -8,6 +10,7 @@ import static org.fp024.study.algorithm.part06.chapter19.NQueen.QueenPosition.NO
 /**
  * N 퀸 문제를 푼다
  */
+@Slf4j
 class NQueen {
     // 현재는 java에 enum을 추가할 수 있으니 정의하자.
     enum QueenPosition {
@@ -151,8 +154,10 @@ class NQueen {
                 if (a + 1 >= N) {
                     // 출력 대신 현재 퀸 해답을 StringBuilder 에 추가했다.
                     builder.append(this).append("---------------\n");
+                    logger.info("found - remove before a:{}, b:{}", a, b);
                 } else {
                     tryQueenAll(a + 1, builder);
+                    logger.info("not found - remove before a:{}, b:{}", a, b);
                 }
 
                 removeQueen(a, b);
