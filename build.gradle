@@ -60,14 +60,14 @@ jacoco {
     // JaCoCo 버전
     toolVersion = '0.8.7'
     // 테스트결과 리포트를 저장할 경로 변경
-    // default는 "$/jacoco"
-    reportsDir = file("$buildDir/jacocoReportDir")
+    // default는 "$buildDir/jacoco"
+    // reportsDir = file("$buildDir/jacocoReportDir")
 }
 
 jacocoTestReport {
     reports {
         html.enabled true
-        xml.enabled true
+        xml.enabled false
         csv.enabled false
         html.destination file("$buildDir/jacocoHtml")
         xml.destination file("$buildDir/jacoco.xml")
