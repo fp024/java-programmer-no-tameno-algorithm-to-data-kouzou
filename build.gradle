@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group 'org.fp024.study.algorithm'
@@ -12,9 +13,9 @@ repositories {
 ext.javaVersion=11
 ext.projectEncoding='UTF8'
 ext.lombokVersion='1.18.20'
-ext.junit5Version='5.7.1'
-ext.springVersion='5.2.15.RELEASE'
-ext.mokitoVersion='3.11.1'
+ext.junit5Version='5.7.2'
+ext.springVersion='5.3.9'
+ext.mokitoVersion='3.12.1'
 
 sourceCompatibility = "$javaVersion"
 targetCompatibility = "$javaVersion"
@@ -29,7 +30,7 @@ dependencies {
     implementation "org.apache.logging.log4j:log4j-slf4j-impl:2.14.1"
 
     testImplementation platform("org.junit:junit-bom:${junit5Version}")
-    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation 'org.junit.jupiter:junit-jupiter:${junit5Version}'
     testImplementation "org.springframework:spring-test:${springVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mokitoVersion}"
     testImplementation "org.mockito:mockito-inline:${mokitoVersion}"
@@ -42,6 +43,7 @@ dependencies {
 
 }
 
+
 test {
     useJUnitPlatform()
     // 테스트 클래스 실행 예시
@@ -51,5 +53,23 @@ test {
     testLogging {
         outputs.upToDateWhen {false}
         showStandardStreams = true
+    }
+}
+
+jacoco {
+    // JaCoCo 버전
+    toolVersion = '0.8.7'
+    // 테스트결과 리포트를 저장할 경로 변경
+    // default는 "$/jacoco"
+    reportsDir = file("$buildDir/jacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled true
+        xml.enabled true
+        csv.enabled false
+        html.destination file("$buildDir/jacocoHtml")
+        xml.destination file("$buildDir/jacoco.xml")
     }
 }
