@@ -10,12 +10,6 @@ repositories {
     mavenCentral()
 }
 
-ext.javaVersion=11
-ext.projectEncoding='UTF8'
-ext.lombokVersion='1.18.20'
-ext.junit5Version='5.7.2'
-ext.springVersion='5.3.9'
-ext.mokitoVersion='3.12.1'
 
 sourceCompatibility = "$javaVersion"
 targetCompatibility = "$javaVersion"
@@ -27,7 +21,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    implementation "org.apache.logging.log4j:log4j-slf4j-impl:2.15.0"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
 
     testImplementation platform("org.junit:junit-bom:${junit5Version}")
     testImplementation 'org.junit.jupiter:junit-jupiter:${junit5Version}'
