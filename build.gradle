@@ -11,14 +11,13 @@ repositories {
 }
 
 
-sourceCompatibility = "$javaVersion"
-targetCompatibility = "$javaVersion"
-
-compileJava.options.encoding = "$projectEncoding"
-
-tasks.withType(JavaCompile) {
-    options.encoding = "$projectEncoding"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of("${javaVersion}")
+  }
 }
+
+[compileJava, compileTestJava]*.options*.encoding = "${projectEncoding}"
 
 dependencies {
     implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
